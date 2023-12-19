@@ -48,7 +48,7 @@ export function createCard(cardName, cardPic, deleteCard, likeCard, openPhoto) {
     likeButton.addEventListener('click', likeCard);
 
     const bigImage = cardElement.querySelector('.card__image');
-    bigImage.addEventListener('click', openPhoto);
+    bigImage.addEventListener('click', () => openPhoto(cardName, cardPic));
 
     return cardElement;
 };
@@ -63,34 +63,4 @@ export function deleteCard(evt) {
 
 export function likeCard(evt) {
   evt.target.closest('.card__like-button').classList.toggle('card__like-button_is-active');
-};
-
-// Функция открытия фотографии
-
-export function openPhoto(evt) {
-  const popupImageOpener = document.querySelector('.popup_type_image');
-  const popupImageUrl = document.querySelector('.popup__image');
-  const popupImageCaption = document.querySelector('.popup__caption');
-
-  popupImageOpener.classList.add('popup_is-opened');
-
-  popupImageUrl.src = evt.target.src;
-  popupImageCaption.textContent = evt.target.closest('.card').textContent;
-}
-
-// Функция добавления новой карточки из формы
-export function handleCardSubmit(evt) {
-  evt.preventDefault();
-  const placeNameInput = document.querySelector('.popup__input_type_card-name');
-  const urlNameInput = document.querySelector('.popup__input_type_url');
-
-  const placeName = placeNameInput.value;
-  const urlName = urlNameInput.value;
-  const newCard = createCard(placeName, urlName, deleteCard, likeCard, openPhoto);
-  const cardForm = document.forms.newPlace;
-  const popupNewCard = document.querySelector('.popup_type_new-card');
-
-  placesList.prepend(newCard);
-  cardForm.reset();
-  popupNewCard.classList.remove('popup_is-opened');
 };
