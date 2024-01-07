@@ -1,7 +1,12 @@
 .card__description {
-  display: flex;
+  display: grid;
   justify-content: space-between;
   align-items: center;
   background: #fff;
   padding: 25px 20px;
+}
+
+.card__like-counter {
+  grid-column: 2; 
+  justify-self: center;
 }

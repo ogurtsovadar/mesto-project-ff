@@ -1,4 +1,4 @@
-.profile__image {
+.profile__image-avatar {
   width: 120px;
   height: 120px;
   -webkit-border-radius: 50%;
@@ -9,14 +9,40 @@
   margin: 0 29px 0 0;
 }
 
+.profile__image-edit {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: -8%;
+  width: 120px;
+  height: 120px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  transform: translate(50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  background-size: cover;
+  background-position: center;
+  padding: 5px;
+}
+
+.profile__image-edit-icon {
+  margin: 47px;
+}
+
+.profile__image:hover .profile__image-edit {
+  display: block;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 740px) {
-  .profile__image {
+  .profile__image-avatar {
     margin: 0 10px 0 0;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .profile__image {
+  .profile__image-avatar {
     margin-right: 0;
   }
 }
