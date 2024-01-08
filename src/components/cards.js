@@ -30,12 +30,11 @@ export function createCard(cardData, deleteCallback, likeСallback, openPhoto, c
 
     likeButton.addEventListener('click', () => {
       if (likeButton.classList.contains("card__like-button_is-active")) {
-        // убираем класс активного лайка
-        likeСallback(likeButton);
-  
         // отправляем запрос на сервер для удаления лайка
         removeLike(cardData._id)
           .then((updatedCard) => {
+            // убираем класс активного лайка
+            likeСallback(likeButton);
             // обновляем счетчик лайков
             likeCounter.textContent = updatedCard.likes.length;
           })
@@ -43,12 +42,11 @@ export function createCard(cardData, deleteCallback, likeСallback, openPhoto, c
             console.log(`Ошибка: ${error}`);
           });
       } else {
-        // добавляем класс активного лайка
-        likeСallback(likeButton);
-  
         // отправляем запрос на сервер для постановки лайка
         likeCard(cardData._id)
           .then((updatedCard) => {
+            // добавляем класс активного лайка
+            likeСallback(likeButton);
             // обновляем счетчик лайков
             likeCounter.textContent = updatedCard.likes.length;
           })
@@ -63,15 +61,12 @@ export function createCard(cardData, deleteCallback, likeСallback, openPhoto, c
       deleteCallback(cardElement, cardData._id); // Передаем ID карточки для удаления
     });
 
-    // проверяем, совпадает ли ID пользователя с владельцем карточки, чтобы показать или скрыть кн. удаления
-    if (currentUserId === userId) {
-      deleteButton.style.display = "block";
-    } else {
-      deleteButton.style.display = "none";
+    // проверяем, совпадает ли ID пользователя с владельцем карточки, чтобы оставить или удалить кнонку корзины
+    if (currentUserId !== userId) {
+      deleteButton.remove();
     }
 
     // обработчик открытия поп-апа с увеличенным фото
-
     bigImage.addEventListener('click', () => openPhoto(cardData));
 
     return cardElement;
@@ -90,15 +85,6 @@ export function deleteCallback(cardElement, cardId) {
 };
 
 // функция лайка
-
 export function likeСallback(likeButton) {
   likeButton.classList.toggle('card__like-button_is-active');
 };
-
-// функция для обновления текста кнопок отправки формы
-export function updateButtonState(buttons, newState) {
-  buttons.forEach((button) => {
-    button.textContent = newState;
-    button.disabled = newState === "Сохранение..."; 
-  });
-}
